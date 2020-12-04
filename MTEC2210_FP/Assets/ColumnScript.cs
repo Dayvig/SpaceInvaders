@@ -34,4 +34,13 @@ public class ColumnScript : MonoBehaviour
         }
         return childObjects.Count <= 0;
     }
+
+    public void shoot(GameObject a)
+    {
+        checkIfEmpty();
+        GameObject g = childObjects[Random.Range(0, childObjects.Count-1)];
+        Debug.Log(g == null);
+        Instantiate(a, g.transform.position, g.transform.rotation);
+
+    }
 }

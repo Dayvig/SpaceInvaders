@@ -35,6 +35,12 @@ public class BasicEnemyMovement : MonoBehaviour
 
     Vector2 enemyOffset = new Vector2(1.5f, 0);
 
+    public int shootSpacing = 8;
+    int shootTimer = 0;
+    public AudioClip shootSound;
+
+    public GameObject Ammo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,10 +76,17 @@ public class BasicEnemyMovement : MonoBehaviour
             }
             takeStep();
         }
+
+        if (shootTimer >= shootSpacing)
+        {
+            shoot();
+            shootTimer = 0;
+        }
     }
 
     void takeStep()
     {
+        shootTimer += Random.Range(1, 4);
         playMoveSound();
         if (moveDown)
         {
@@ -83,10 +96,16 @@ public class BasicEnemyMovement : MonoBehaviour
         {
             nextPos = transform.position + (Vector3.right * movementSpeed * direction);
         }
-        Debug.Log(nextPos);
         moveDown = false;
         transform.position = nextPos;
         stepTimer = 0;
+    }
+
+    void shoot()
+    {
+        int randomColumn = (int) Random.Range(leftColumn, rightColumn);
+        scripts[randomColumn].shoot(Ammo);
+        moveSource.PlayOneShot(shootSound, 0.2f);
     }
 
     void OnTriggerEnter2D(Collider2D col)

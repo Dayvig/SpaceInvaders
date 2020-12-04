@@ -20,7 +20,7 @@ public class DeleteBullets : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.tag == ("PlayerBullet"))
+        if (col.tag == ("PlayerBullet") || col.tag == ("EnemyBullet"))
         {
             Destroy(col.gameObject);
         }
