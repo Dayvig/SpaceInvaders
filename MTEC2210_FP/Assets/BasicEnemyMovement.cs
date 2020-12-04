@@ -16,6 +16,7 @@ public class BasicEnemyMovement : MonoBehaviour
     BoxCollider2D leftCollider;
     BoxCollider2D bottomCollider;
     BoxCollider2D topCollider;
+    BoxCollider2D rackCollider;
     int direction = 1;
     bool moveDown = false;
     Vector3 nextPos;
@@ -26,6 +27,14 @@ public class BasicEnemyMovement : MonoBehaviour
 
     int enemyCount = 40;
 
+    public GameObject[] columnList = new GameObject[10];
+    public ColumnScript[] scripts = new ColumnScript[10];
+    int leftColumn = 0;
+    int rightColumn = 9;
+    private ColumnScript sc;
+
+    Vector2 enemyOffset = new Vector2(1.5f, 0);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +44,12 @@ public class BasicEnemyMovement : MonoBehaviour
         topCollider = TopEdge.GetComponent<BoxCollider2D>();
         moveSource = GetComponent<AudioSource>();
         transform.position = InitialPosition;
+        rackCollider = GetComponent<BoxCollider2D>();
+
+        for(int i = 0; i < columnList.Length; i++)
+        {
+            scripts[i] = columnList[i].GetComponent<ColumnScript>();
+        }
     }
 
     // Update is called once per frame
@@ -43,6 +58,16 @@ public class BasicEnemyMovement : MonoBehaviour
         stepTimer += Time.deltaTime;
         if (stepTimer >= stepSpacing)
         {
+            if (scripts[leftColumn].checkIfEmpty())
+            {
+                leftColumn++;
+                shiftHitBoxRight();
+            }
+            if (scripts[rightColumn].checkIfEmpty())
+            {
+                rightColumn--;
+                shiftHitBoxLeft();
+            }
             takeStep();
         }
     }
@@ -106,5 +131,16 @@ public class BasicEnemyMovement : MonoBehaviour
         else if (enemyCount == 4){
             stepSpacing /= 2;
         }
+    }
+
+    public void shiftHitBoxRight()
+    {
+        rackCollider.size -= enemyOffset;
+        rackCollider.offset += (enemyOffset / 2);
+    }
+    public void shiftHitBoxLeft()
+    {
+        rackCollider.size -= enemyOffset;
+        rackCollider.offset -= (enemyOffset / 2);
     }
 }
