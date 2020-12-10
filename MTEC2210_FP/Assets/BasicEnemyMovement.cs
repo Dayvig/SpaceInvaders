@@ -103,7 +103,11 @@ public class BasicEnemyMovement : MonoBehaviour
 
     void shoot()
     {
-        int randomColumn = (int) Random.Range(leftColumn, rightColumn);
+        int randomColumn = (int)Random.Range(leftColumn, rightColumn+1);
+        while (scripts[randomColumn].checkIfEmpty())
+        {
+            randomColumn = (int)Random.Range(leftColumn, rightColumn+1);
+        }
         scripts[randomColumn].shoot(Ammo);
         moveSource.PlayOneShot(shootSound, 0.2f);
     }

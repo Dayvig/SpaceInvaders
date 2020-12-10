@@ -25,13 +25,6 @@ public class ColumnScript : MonoBehaviour
 
     public bool checkIfEmpty()
     {
-        foreach (GameObject g in childObjects)
-        {
-            if (g == null)
-            {
-                childObjects.Remove(g);
-            }
-        }
         return childObjects.Count <= 0;
     }
 
@@ -39,7 +32,6 @@ public class ColumnScript : MonoBehaviour
     {
         checkIfEmpty();
         GameObject g = childObjects[Random.Range(0, childObjects.Count-1)];
-        Debug.Log(g == null);
         Instantiate(a, g.transform.position, g.transform.rotation);
 
     }

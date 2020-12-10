@@ -880,6 +880,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  shootSpacing: 3
+  shootSound: {fileID: 8300000, guid: 1d8fc22e481b35645ba16485274f05e5, type: 3}
+  Ammo: {fileID: 2496965209051712378, guid: 44a2b4e7d8c80e0459a902bd1f2912fa, type: 3}
 --- !u!61 &557151793
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3074,8 +3077,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505472929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -0.27, z: 10}
-  m_LocalScale: {x: 37.14191, y: 20.200169, z: 1}
+  m_LocalPosition: {x: -0.394, y: -0.109, z: 10}
+  m_LocalScale: {x: 37.969307, y: 19.878403, z: 1}
   m_Children:
   - {fileID: 635546769}
   - {fileID: 897396725}
@@ -3582,6 +3585,9 @@ MonoBehaviour:
   shootSpacing: 0.7
   Ammo: {fileID: 1639113592700984603, guid: afb4349ed3bec6348a116baa259c99a9, type: 3}
   shootSound: {fileID: 1718960566}
+  explosionSound: {fileID: 8300000, guid: 296dce0e1b2b98146b3eee3666066eed, type: 3}
+  flickerSpacing: 0.2
+  baseFlickerAmount: 3
 --- !u!50 &1718960562
 Rigidbody2D:
   serializedVersion: 4

@@ -7,11 +7,15 @@ public class EnemyBehavior : MonoBehaviour
 
     bool MarkForDestruction = false;
     public BasicEnemyMovement basic;
+    GameObject thisColumn;
+    ColumnScript sc;
 
     // Start is called before the first frame update
     void Start()
     {
         basic = GameObject.Find("EnemyRack").GetComponent<BasicEnemyMovement>();
+        thisColumn = this.transform.parent.gameObject;
+        sc = thisColumn.GetComponent<ColumnScript>();
     }
 
     // Update is called once per frame
@@ -19,6 +23,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (MarkForDestruction)
         {
+            sc.childObjects.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
     }
