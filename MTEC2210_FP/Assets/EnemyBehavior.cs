@@ -23,6 +23,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (MarkForDestruction)
         {
+            basic.reduceEnemyCount();
             sc.childObjects.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
@@ -34,7 +35,6 @@ public class EnemyBehavior : MonoBehaviour
         {
             basic.playExplosionSound();
             MarkForDestruction = true;
-            basic.reduceEnemyCount();
             Destroy(col.gameObject);
         }
     }

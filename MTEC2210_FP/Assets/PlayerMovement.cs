@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     bool flickerOn = false;
 
     SpriteRenderer sr;
+    public GameManager manager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,27 +51,30 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        updateGraphics();
-        shootTimer += Time.deltaTime;
-        if (Input.GetKey(rightArrow) && !cannotMoveRight)
+        if (manager.gameState == 0)
         {
-            nextPos = transform.position + (Vector3.right * movementSpeed * Time.deltaTime);
-        }
-        else if (Input.GetKey(leftArrow) && !cannotMoveLeft)
-        {
-            nextPos = transform.position + (Vector3.right * -movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(shootButton) && !flickerOn)
-        {
-            if (shootTimer >= shootSpacing)
-            { 
-                shoot();
-                shootTimer = 0;
+            updateGraphics();
+            shootTimer += Time.deltaTime;
+            if (Input.GetKey(rightArrow) && !cannotMoveRight)
+            {
+                nextPos = transform.position + (Vector3.right * movementSpeed * Time.deltaTime);
             }
+            else if (Input.GetKey(leftArrow) && !cannotMoveLeft)
+            {
+                nextPos = transform.position + (Vector3.right * -movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(shootButton) && !flickerOn)
+            {
+                if (shootTimer >= shootSpacing)
+                {
+                    shoot();
+                    shootTimer = 0;
+                }
+            }
+            transform.position = nextPos;
+            cannotMoveRight = false;
+            cannotMoveLeft = false;
         }
-        transform.position = nextPos;
-        cannotMoveRight = false;
-        cannotMoveLeft = false;
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -90,8 +95,7 @@ public class PlayerMovement : MonoBehaviour
         {
             shootSound.PlayOneShot(explosionSound, 0.8f);
             flickerOn = true;
-            //reduce player lives
-            //if out of lives, lose state
+            manager.reduceLives();
         }
     }
 

@@ -25,7 +25,7 @@ public class BasicEnemyMovement : MonoBehaviour
     int currentClip = 0;
     AudioSource moveSource;
 
-    int enemyCount = 40;
+    public int enemyCount = 40;
 
     public GameObject[] columnList = new GameObject[10];
     public ColumnScript[] scripts = new ColumnScript[10];
@@ -40,6 +40,7 @@ public class BasicEnemyMovement : MonoBehaviour
     public AudioClip shootSound;
 
     public GameObject Ammo;
+    public GameManager manager;
 
     // Start is called before the first frame update
     void Start()
@@ -61,26 +62,29 @@ public class BasicEnemyMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        stepTimer += Time.deltaTime;
-        if (stepTimer >= stepSpacing)
+        if (manager.gameState == 0)
         {
-            if (scripts[leftColumn].checkIfEmpty())
+            stepTimer += Time.deltaTime;
+            if (stepTimer >= stepSpacing)
             {
-                leftColumn++;
-                shiftHitBoxRight();
+                if (scripts[leftColumn].checkIfEmpty())
+                {
+                    leftColumn++;
+                    shiftHitBoxRight();
+                }
+                if (scripts[rightColumn].checkIfEmpty())
+                {
+                    rightColumn--;
+                    shiftHitBoxLeft();
+                }
+                takeStep();
             }
-            if (scripts[rightColumn].checkIfEmpty())
-            {
-                rightColumn--;
-                shiftHitBoxLeft();
-            }
-            takeStep();
-        }
 
-        if (shootTimer >= shootSpacing)
-        {
-            shoot();
-            shootTimer = 0;
+            if (shootTimer >= shootSpacing)
+            {
+                shoot();
+                shootTimer = 0;
+            }
         }
     }
 

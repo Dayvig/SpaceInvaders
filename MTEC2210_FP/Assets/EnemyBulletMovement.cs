@@ -14,4 +14,13 @@ public class EnemyBulletMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(Vector2.down * movementSpeed);
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == ("Shield"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 }
