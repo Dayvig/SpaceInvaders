@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         if (Input.GetKeyUp(KeyCode.G)){
             gameState = 2;
             Destroy(GameObject.Find("EnemyRack"));
