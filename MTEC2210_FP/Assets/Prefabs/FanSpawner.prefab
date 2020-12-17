@@ -43,7 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb39f8a35008a2246a29d2b4fc49e9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  num: 14
+  num: 15
   spread: 180
   Ammo: {fileID: 6617021491062159877, guid: b0b2426dfe2b76245abc49d45da4c238, type: 3}
-  fanSpacing: 0.8
+  fanSpacing: 0.6
+  aimAtPlayer: 0
+  temporary: 0
+  player: {fileID: 0}
+  lifeTime: 0

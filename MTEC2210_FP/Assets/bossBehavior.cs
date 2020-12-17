@@ -8,19 +8,21 @@ public class bossBehavior : MonoBehaviour
     private Vector2 InitialPosition = new Vector3(-1f, 11f, 0);
     bool floatIn = true;
     Vector2 nextPos;
-    int phase = 1;
+    int phase = 3;
     public GameObject mainFan;
-    public float phaseTimer = 20f;
+    float phaseTimer = 10f;
     public GameObject rackPattern;
+    public GameObject randomBurstPattern;
 
     int halfSpawns = 0;
 
-    public float startingHp = 3000f;
+    float startingHp = 2000f;
     float hp;
     public GameObject healthBar;
 
     GameObject gameManager; 
     GameManager manager;
+    float miniTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,10 +44,24 @@ public class bossBehavior : MonoBehaviour
         updatePhase(phase);
         if (phaseTimer <= 0f)
         {
+            if (phase != 0)
+            {
+                Reprieve();
+                phase = 0;
+            }
+            else
+            {
+                phase = Random.Range(1, 2);
+            }
             switch (phase)
             {
                 case 1:
                     RackPhaseSpawn();
+                    break;
+                case 2:
+                    RandomBurstSpawn();
+                    break;
+                default:
                     return;
             }
         }
@@ -65,7 +81,7 @@ public class bossBehavior : MonoBehaviour
             }
         }
     }
-    
+
     void updatePhase(int p)
     {
         switch (p)
@@ -78,6 +94,19 @@ public class bossBehavior : MonoBehaviour
                     tmp.transform.position += Vector3.right * 0.5f;
                     halfSpawns--;
                 }
+                break;
+            case 2:
+                miniTimer -= Time.deltaTime;
+                if (miniTimer <= 0f)
+                {
+                    int randomPos = Random.Range(-16, 16);
+                    GameObject tmp = Instantiate(randomBurstPattern, new Vector3(randomPos, this.transform.position.y, this.transform.position.z), this.transform.rotation);
+                    tmp.GetComponent<bulletFanScript>().lifeTime = 1f;
+                    tmp.GetComponent<bulletFanScript>().temporary = true;
+                    miniTimer = 0.5f;
+                }
+                break;
+            default:
                 return;
         }
     }
@@ -99,6 +128,19 @@ public class bossBehavior : MonoBehaviour
         halfSpawns = 1;
     }
 
+    void Reprieve()
+    {
+        phaseTimer = 5f;
+    }
 
+    void RandomBurstSpawn()
+    {
+        int randomPos = Random.Range(-16, 16);
+        GameObject tmp = Instantiate(randomBurstPattern, new Vector3 (randomPos, this.transform.position.y, this.transform.position.z), this.transform.rotation);
+        tmp.GetComponent<bulletFanScript>().lifeTime = 1f;
+        tmp.GetComponent<bulletFanScript>().temporary = true;
+        phaseTimer = 40f;
+        miniTimer = 0.5f;
+    }
 
 }

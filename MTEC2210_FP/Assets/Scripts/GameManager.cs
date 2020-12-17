@@ -49,10 +49,13 @@ public class GameManager : MonoBehaviour
 
     public void reduceLives()
     {
-        lives--;
-        if (lives <= 0)
+        if (gameState != 1 && gameState != 3)
         {
-            gameState = 1;
+            lives--;
+            if (lives <= 0)
+            {
+                gameState = 1;
+            }
         }
     }
 }

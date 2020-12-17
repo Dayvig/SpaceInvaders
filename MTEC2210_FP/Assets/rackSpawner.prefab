@@ -48,7 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.5
   Ammo: {fileID: 7244512505002923869, guid: e738f6fddfefb184ab01ce4359d61a74, type: 3}
-  rackSpacing: 0.3
+  rackSpacing: 0.1
+  rackTimer: 0
   LeftEdge: {fileID: 0}
   RightEdge: {fileID: 0}
   lifeTime: 30

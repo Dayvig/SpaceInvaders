@@ -182,7 +182,9 @@ MonoBehaviour:
   phaseTimer: 20
   rackPattern: {fileID: 5418593857346641379, guid: 7847ae60284bad849b3fed171af93386,
     type: 3}
-  hp: 5000
+  randomBurstPattern: {fileID: 7962772276429462169, guid: 3ef627d9556060d4d8f1a3cec472c2bb,
+    type: 3}
+  startingHp: 0
   healthBar: {fileID: 504321337663851081}
 --- !u!82 &6240685098110606328
 AudioSource:
