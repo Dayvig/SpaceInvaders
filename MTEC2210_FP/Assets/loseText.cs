@@ -20,7 +20,7 @@ public class loseText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (manager.gameState == 2)
+        if (manager.gameState == 1)
         {
             text.enabled = true;
         }

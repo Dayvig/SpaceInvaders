@@ -42,6 +42,8 @@ public class BasicEnemyMovement : MonoBehaviour
     public GameObject Ammo;
     public GameManager manager;
 
+    public GameObject Boss;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -157,6 +159,11 @@ public class BasicEnemyMovement : MonoBehaviour
         }
         else if (enemyCount == 4){
             stepSpacing /= 2;
+        }
+        else if (enemyCount == 0)
+        {
+            manager.gameState = 2;
+            Instantiate(Boss, this.transform.position, this.transform.rotation);
         }
     }
 
